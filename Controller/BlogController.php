@@ -1,7 +1,6 @@
 <?php
 
 
-require('database/Blog.php');
 
 
 class BlogController
@@ -15,7 +14,7 @@ class BlogController
 
         $config = require('config.php');
         $this->conn = Connection::create($config);
-        $this->query = new Blog($this->conn);
+        
     }
 
     public function index(){
