@@ -33,7 +33,7 @@ class Query
 
     public function select($table,$attribute,$attrName)
     {
-    $query = "SELECT * FROM ".$table." WHERE {$attrName}='$attrName' ";
+    $query = "SELECT * FROM ".$table." WHERE {$attrName}='$attribute' ";
         $statment = $this->pdo->prepare($query);
         $statment->execute();
         $results = $statment->fetchAll();
