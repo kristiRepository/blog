@@ -5,29 +5,24 @@
 
 class BlogController
 {
-
-    protected $conn;
-    protected $query;
+    protected $article;
+    
 
     public function __construct()
     {
 
-        $config = require('config.php');
-        $this->conn = Connection::create($config);
+        $this->article=new Article();
         
     }
 
     public function index(){
 
-        
+        $articles=$this->article->getAllArticlesBlog();
+        $article_tags=$this->article->getTagsBlog();
         require('views/blog/blog.php');
     }
 
-    public function about(){
-
-        
-        require('views/blog/about.php');
-    }
+   
 
 
 

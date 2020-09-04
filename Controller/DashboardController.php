@@ -9,6 +9,7 @@ class DashboardController
     protected $category;
     protected $userRequest;
     protected $tag;
+    protected $article;
 
     public function __construct($request)
     {
@@ -16,6 +17,7 @@ class DashboardController
         $this->user = new User();
         $this->category = new Category();
         $this->tag = new Tag();
+        $this->article=new Article();
         $this->userRequest = new UserRequest($request);
         
     }
@@ -33,6 +35,8 @@ class DashboardController
     }
 
     public function articles(){
+        $articles=$this->article->getAllArticles();
+        $article_tags=$this->article->getArticlesWithTags();
         require('views/blog/dashboard/articles.php');
     }
 

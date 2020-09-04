@@ -6,6 +6,7 @@ require('Controller/BlogController.php');
 require('Controller/DashboardController.php');
 require('Controller/CategoriesController.php');
 require('Controller/TagController.php');
+require('Controller/ArticleController.php');
 
 
 

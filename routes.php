@@ -29,6 +29,9 @@ $router->post('dashboard/delete-category','CategoriesController@delete@notLogged
 
 
 $router->get('dashboard/articles','DashboardController@articles@notLoggedIn');
-
+$router->post('dashboard/article/mark-article','ArticleController@markArticle@notLoggedIn');
+$router->post('dashboard/article/un-mark-article','ArticleController@unMarkArticle@notLoggedIn');
+$router->post('dashboard/article/publish-article','ArticleController@publishArticle@notLoggedIn');
+$router->post('dashboard/article/draft-article','ArticleController@draftArticle@notLoggedIn');
 
 $router->get('dashboard/comments','DashboardController@comments@notLoggedIn');

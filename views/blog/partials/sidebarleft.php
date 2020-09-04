@@ -1,3 +1,4 @@
+
 <nav id="sidebar">
     <div class="sidebar-header">
         <h3>Personal Blog</h3>
@@ -12,7 +13,7 @@
             <a href="/dashboard/index">Dashboard</a>
         </li>
         <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Name</a>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><?php echo $_SESSION['username'] ?></a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
                     <a href="/signout">Sign out</a>

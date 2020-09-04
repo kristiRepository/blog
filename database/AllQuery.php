@@ -51,4 +51,37 @@ class AllQuery extends Query
         $users = $statment->fetchAll(PDO::FETCH_CLASS, "User");
         return $users;
     }
+
+
+    public function allArticlesWithUsersWithCategories(){
+        $query="SELECT * FROM ((article INNER JOIN category ON article.category_id=category.id) INNER JOIN user ON article.user_id=user.id) ";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        $articles=$statment->fetchAll();
+        return $articles;
+        
+    }
+
+    public function getArticlesWithTags(){
+        $query="SELECT * FROM ((article_tag INNER JOIN article ON article_tag.article_id=article.id) INNER JOIN tag ON article_tag.tag_id=tag.id )";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        $articles=$statment->fetchAll();
+        return $articles;
+    }
+    public function getArticlesAll(){
+        $query="SELECT * FROM (category LEFT JOIN (article INNER JOIN user ON article.user_id=user.id ) ON category.id=article.category_id)  ";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        $articles=$statment->fetchAll();
+        return $articles;
+    }
+
+    public function getTagsWithArticles(){
+        $query="SELECT * FROM (tag LEFT JOIN (article_tag INNER JOIN article ON article_tag.article_id=article.id) ON tag.id=article_tag.tag_id)";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        $articles=$statment->fetchAll();
+        return $articles;
+    }
 }
