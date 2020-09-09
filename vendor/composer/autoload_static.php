@@ -21,6 +21,7 @@ class ComposerStaticInitac1c375549448559ed7bb31847b37cc8
     );
 
     public static $classMap = array (
+        'AdminMiddleware' => __DIR__ . '/../..' . '/AdminMiddleware.php',
         'AllQuery' => __DIR__ . '/../..' . '/database/AllQuery.php',
         'Article' => __DIR__ . '/../..' . '/Article.php',
         'ArticleController' => __DIR__ . '/../..' . '/Controller/ArticleController.php',
@@ -31,6 +32,9 @@ class ComposerStaticInitac1c375549448559ed7bb31847b37cc8
         'CategoriesController' => __DIR__ . '/../..' . '/Controller/CategoriesController.php',
         'Category' => __DIR__ . '/../..' . '/Category.php',
         'CategoryRequest' => __DIR__ . '/../..' . '/Requests/CategoryRequest.php',
+        'Comment' => __DIR__ . '/../..' . '/Comment.php',
+        'CommentController' => __DIR__ . '/../..' . '/Controller/CommentController.php',
+        'CommentRequest' => __DIR__ . '/../..' . '/Requests/CommentRequest.php',
         'ComposerAutoloaderInitac1c375549448559ed7bb31847b37cc8' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInitac1c375549448559ed7bb31847b37cc8' => __DIR__ . '/..' . '/composer/autoload_static.php',

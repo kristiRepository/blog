@@ -190,39 +190,7 @@ a.article, a.article:hover {
 }
 
 
-/* ---------------------------------------------------
-    MEDIAQUERIES
------------------------------------------------------ */
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-        transform: rotateY(90deg);
-    }
-    #sidebar.active {
-        margin-left: 0;
-        transform: none;
-    }
-    #sidebarCollapse span:first-of-type,
-    #sidebarCollapse span:nth-of-type(2),
-    #sidebarCollapse span:last-of-type {
-        transform: none;
-        opacity: 1;
-        margin: 5px auto;
-    }
-    #sidebarCollapse.active span {
-        margin: 0 auto;
-    }
-    #sidebarCollapse.active span:first-of-type {
-        transform: rotate(45deg) translate(2px, 2px);
-    }
-    #sidebarCollapse.active span:nth-of-type(2) {
-        opacity: 0;
-    }
-    #sidebarCollapse.active span:last-of-type {
-        transform: rotate(-45deg) translate(1px, -1px);
-    }
 
-}
 
 
 .btn-blog {
@@ -230,7 +198,7 @@ a.article, a.article:hover {
     background-color: #37d980;
     border-color: #37d980;
     border-radius:0;
-    margin-bottom:10px
+    margin-bottom:20px
 }
 .btn-blog:hover,
 .btn-blog:focus,
@@ -244,3 +212,4 @@ a.article, a.article:hover {
  h2{color:#34ca78;}
  .margin10{margin-bottom:10px; margin-right:10px;}
 
+ 

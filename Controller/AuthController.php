@@ -115,6 +115,7 @@ class AuthController
 
         $_SESSION['id'] = $user[0]['id'];
         $_SESSION['username'] = $user[0]['username'];
+        $_SESSION['user_role']=$user[0]['user_role'];
 
         User::setCookie([$this->userRequest->getInput('username'), $this->userRequest->getInput('password')]);
         header("Location: /index");

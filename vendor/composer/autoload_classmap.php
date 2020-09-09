@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AdminMiddleware' => $baseDir . '/AdminMiddleware.php',
     'AllQuery' => $baseDir . '/database/AllQuery.php',
     'Article' => $baseDir . '/Article.php',
     'ArticleController' => $baseDir . '/Controller/ArticleController.php',
@@ -16,6 +17,9 @@ return array(
     'CategoriesController' => $baseDir . '/Controller/CategoriesController.php',
     'Category' => $baseDir . '/Category.php',
     'CategoryRequest' => $baseDir . '/Requests/CategoryRequest.php',
+    'Comment' => $baseDir . '/Comment.php',
+    'CommentController' => $baseDir . '/Controller/CommentController.php',
+    'CommentRequest' => $baseDir . '/Requests/CommentRequest.php',
     'ComposerAutoloaderInitac1c375549448559ed7bb31847b37cc8' => $vendorDir . '/composer/autoload_real.php',
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInitac1c375549448559ed7bb31847b37cc8' => $vendorDir . '/composer/autoload_static.php',

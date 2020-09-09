@@ -41,4 +41,6 @@ class Category{
     public function delete($delete_category){
          $this->query->delete('category','id',$delete_category);
     }
+
+   
 }

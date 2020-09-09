@@ -35,7 +35,8 @@ class DashboardController
     }
 
     public function articles(){
-        $articles=$this->article->getAllArticles();
+        $result=$this->article->getAllArticles(0,6);
+        $articles=$result[0];
         $article_tags=$this->article->getArticlesWithTags();
         require('views/blog/dashboard/articles.php');
     }

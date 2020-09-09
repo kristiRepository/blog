@@ -1,6 +1,7 @@
 <?php
 
 require('AuthMiddleware.php');
+require('AdminMiddleware.php');
 require('Controller/AuthController.php');
 require('Controller/BlogController.php');
 require('Controller/DashboardController.php');
@@ -51,15 +52,17 @@ class Router
         throw new \Exception('No route defined for this URI');
     }
 
-    protected function callAction($requestInput,$controller, $action, $middleware)
+    protected function callAction($requestInput,$controller, $action, $middleware,$admin)
     {
+        $check=new AdminMiddleware();
 
         if($middleware == "" || !AuthMiddleware::$middleware()){
+            if($admin == "" || !$check->$admin()){
 
         $controller = new $controller($requestInput);
         if (!method_exists($controller, $action)) {
             throw new \Exception('${$controller} does not respond to the {$action} action');
         } else
          return $controller->$action();
-    }}
+    }}}
 }

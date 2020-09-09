@@ -33,9 +33,9 @@ class ArticleController
         header('Location: /dashboard/articles');
     }
 
-    public function draftArticle()
+    public function unpublishArticle()
     {
-        $this->article->draft($this->articleRequest->getInput('articleId'));
+        $this->article->unpublish($this->articleRequest->getInput('articleId'));
         header('Location: /dashboard/articles');
     }
 }

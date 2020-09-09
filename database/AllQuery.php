@@ -53,35 +53,108 @@ class AllQuery extends Query
     }
 
 
-    public function allArticlesWithUsersWithCategories(){
-        $query="SELECT * FROM ((article INNER JOIN category ON article.category_id=category.id) INNER JOIN user ON article.user_id=user.id) ";
+    public function allArticlesWithUsersWithCategories($start, $limit)
+    {
+        $query = "SELECT * FROM ((article INNER JOIN category ON article.category_id=category.id) INNER JOIN user ON article.user_id=user.id) WHERE draft='1' ";
         $statment = $this->pdo->prepare($query);
         $statment->execute();
-        $articles=$statment->fetchAll();
-        return $articles;
-        
+        $articles0 = $statment->fetchAll();
+        $query = $query . " AND status='published'";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        $total = $statment->rowCount();
+        $articles1 = $statment->fetchAll();
+        $query = $query . " LIMIT " . $start . "," . $limit . " ";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        $articles2 = $statment->fetchAll();
+        return [$articles0, $articles1, $articles2, $total];
+    }
+    public function mainTotal()
+    {
+        $query = "SELECT * FROM article WHERE status='published' ";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        return $statment->rowCount();
     }
 
-    public function getArticlesWithTags(){
-        $query="SELECT * FROM ((article_tag INNER JOIN article ON article_tag.article_id=article.id) INNER JOIN tag ON article_tag.tag_id=tag.id )";
+    public function getArticlesWithTags()
+    {
+        $query = "SELECT * FROM ((article_tag INNER JOIN article ON article_tag.article_id=article.id) INNER JOIN tag ON article_tag.tag_id=tag.id )";
         $statment = $this->pdo->prepare($query);
         $statment->execute();
-        $articles=$statment->fetchAll();
-        return $articles;
-    }
-    public function getArticlesAll(){
-        $query="SELECT * FROM (category LEFT JOIN (article INNER JOIN user ON article.user_id=user.id ) ON category.id=article.category_id)  ";
-        $statment = $this->pdo->prepare($query);
-        $statment->execute();
-        $articles=$statment->fetchAll();
+        $articles = $statment->fetchAll();
         return $articles;
     }
 
-    public function getTagsWithArticles(){
-        $query="SELECT * FROM (tag LEFT JOIN (article_tag INNER JOIN article ON article_tag.article_id=article.id) ON tag.id=article_tag.tag_id)";
+
+
+    public function limitTagArticles($like, $query, $start, $limit)
+    {
+        $like = "'%" . $like . "%'";
+        $query = "SELECT * FROM (tag LEFT JOIN (article_tag INNER JOIN article ON article_tag.article_id=article.id) ON tag.id=article_tag.tag_id) WHERE " . $query . " LIKE " . $like . " AND title IS NOT NULL AND status='published' ";
         $statment = $this->pdo->prepare($query);
         $statment->execute();
-        $articles=$statment->fetchAll();
-        return $articles;
+        $total = $statment->rowCount();
+        $query = $query . " LIMIT " . $start . "," . $limit . " ";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        $articles = $statment->fetchAll();
+        return [$articles, $total];
+    }
+
+    public function limitCategoryArticles($like, $query, $start, $limit)
+    {
+        $like = "'%" . $like . "%'";
+        $query = "SELECT * FROM category LEFT JOIN article on category.id=article.category_id WHERE " . $query . " LIKE " . $like . "  AND title IS NOT NULL AND status='published' ";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        $total = $statment->rowCount();
+        $query = $query . " LIMIT " . $start . "," . $limit . " ";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        $articles = $statment->fetchAll();
+        return [$articles, $total];
+    }
+
+    public function mydrafts($user)
+    {
+        $query = "SELECT * FROM article WHERE user_id='$user' AND draft='0' ";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        $mydrafts = $statment->fetchAll();
+        return $mydrafts;
+    }
+
+    public function getdraft($slug, $user)
+    {
+        $query = "SELECT * FROM article WHERE user_id='$user' AND title='$slug' AND draft='0' ";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        $draft = $statment->fetchAll();
+        return $draft;
+    }
+
+    public function postdraft($title, $slug, $summary, $body, $image, $thumbnail, $category_id, $metadata, $user_id)
+    {
+        $query = "UPDATE article SET title='$title',slug='$slug',summary='$summary',body='$body',image='$image',thumbnail='$thumbnail',category_id='$category_id',meta_data='$metadata',user_id='$user_id',draft='1' ";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+    }
+
+    public function getSingleArticle($title)
+    {
+        $query = "SELECT * FROM ((article INNER JOIN category ON article.category_id=category.id) INNER JOIN user ON article.user_id=user.id) WHERE title = '$title' ";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        return $statment->fetchAll();
+    }
+
+    public function articleComments($article_title){
+        $query="SELECT * FROM ((comment INNER JOIN user ON comment.user_id=user.id) INNER JOIN article ON comment.article_id=article.id) WHERE title='$article_title' ";
+        $statment = $this->pdo->prepare($query);
+        $statment->execute();
+        return $statment->fetchAll();
+
     }
 }

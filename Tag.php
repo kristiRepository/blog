@@ -35,6 +35,10 @@ class Tag{
         $this->query->insert('tag',['tag_name'],[$name]);
     }
 
+    public function chain($data){
+        $this->query->insert('article_tag',['article_id','tag_id'],$data);
+    }
+
 
 
 }
