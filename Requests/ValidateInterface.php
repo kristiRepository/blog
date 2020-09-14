@@ -1,9 +1,10 @@
-<?php 
+<?php
 
-interface ValidateInterface{
+interface ValidateInterface
+{
 
     public function validateCreate();
-    
+
     public function validateCheck();
 
     public function verify();
@@ -13,11 +14,4 @@ interface ValidateInterface{
     public function validateUpdate();
 
     public function confirm();
-
-
-
-
- 
- }
-
-
+}

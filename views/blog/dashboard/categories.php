@@ -32,7 +32,9 @@
                             <td><?php echo $category->getName(); ?></td>
                             <td><?php echo $category->articlesCount(); ?></td>
                             <td>
-                                <div style="text-align:center;"><button id=<?php echo $category->getId(); ?>  onclick="show($(this).attr('id'),$(this).attr('vi'));" class="btn btn-primary" vi=<?php echo $category->getName(); ?> style="width: 150px; height:40px;">Edit</button><span><form style="display: inline;" action="/dashboard/delete-category" method="POST"><input type="hidden" name="delete_category" value=<?php echo $category->getId(); ?>><button type="submit" style="width: 150px; height:40px;" class="btn btn-danger">Delete</button></form></div>
+                                <div style="text-align:center;"><button id=<?php echo $category->getId(); ?> onclick="show($(this).attr('id'),$(this).attr('vi'));" class="btn btn-primary" vi=<?php echo $category->getName(); ?> style="width: 150px; height:40px;">Edit</button><span>
+                                        <form style="display: inline;" action="/dashboard/delete-category" method="POST"><input type="hidden" name="delete_category" value=<?php echo $category->getId(); ?>><button type="submit" style="width: 150px; height:40px;" class="btn btn-danger">Delete</button></form>
+                                </div>
                             </td>
                         </tr>
                     <?php } ?>
@@ -100,7 +102,7 @@
         document.querySelector(".edit-popup").style.display = "";
     });
 
-    function show(id,value) {
+    function show(id, value) {
         document.querySelector(".edit-popup").style.display = "flex";
         document.querySelector("#category_id").value = id;
         document.querySelector("#edit_name").value = value;

@@ -25,22 +25,22 @@ class Request
         return $_SERVER['REQUEST_METHOD'];
     }
 
-    public static function input(){
-       $data =  array_merge($_POST, $_GET);
+    public static function input()
+    {
+        $data =  array_merge($_POST, $_GET);
         return new self($data);
     }
 
-    protected function test($input){
+    protected function test($input)
+    {
         $input = trim($input);
         $input = stripslashes($input);
         $input = htmlspecialchars($input);
         return $input;
-    
     }
 
-    public function getInput($name){
+    public function getInput($name)
+    {
         return $this->input()->input[$name] ?? null;
     }
-
-    
 }

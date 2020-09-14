@@ -19,6 +19,7 @@ class Query
             return ":" . $attributesArray;
         }, $attributesArray);
 
+
         $bindString = implode(',', $bindArray);
         $query = "INSERT INTO " . $table_name . "(" . $attributesString . ") values(" . $bindString . ")";
         $statment = $this->pdo->prepare($query);
@@ -33,9 +34,9 @@ class Query
 
     public function select($table, $attribute, $attrName)
     {
-        $query = "SELECT * FROM " . $table . " WHERE $attrName=:".$attrName." ";
+        $query = "SELECT * FROM " . $table . " WHERE $attrName=:" . $attrName . " ";
         $statment = $this->pdo->prepare($query);
-        $statment->bindParam(":".$attrName, $attribute, PDO::PARAM_STR);
+        $statment->bindParam(":" . $attrName, $attribute, PDO::PARAM_STR);
         $statment->execute();
         $results = $statment->fetchAll();
         return $results;
@@ -43,10 +44,10 @@ class Query
 
     public function update($table, $attributeChange, $attributeChangeValue, $attrCondition1, $attrCondition2)
     {
-        $query = "UPDATE " . $table . " SET " . $attributeChange . "=:".$attributeChange." WHERE " . $attrCondition1 . "=:".$attrCondition1." ";
+        $query = "UPDATE " . $table . " SET " . $attributeChange . "=:" . $attributeChange . " WHERE " . $attrCondition1 . "=:" . $attrCondition1 . " ";
         $statment = $this->pdo->prepare($query);
-        $statment->bindParam(":".$attrCondition1, $attrCondition2, PDO::PARAM_STR);
-        $statment->bindParam(":".$attributeChange, $attributeChangeValue, PDO::PARAM_STR);
+        $statment->bindParam(":" . $attrCondition1, $attrCondition2, PDO::PARAM_STR);
+        $statment->bindParam(":" . $attributeChange, $attributeChangeValue, PDO::PARAM_STR);
 
         $statment->execute();
     }

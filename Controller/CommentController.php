@@ -32,8 +32,7 @@ class CommentController
             $this->comment->delete($this->commentRequest->getInput('comment_id'));
             header('Location: /dashboard/comments');
             return;
-        }
-        else if ($_SESSION['id'] != $this->commentRequest->getInput('author')) {
+        } else if ($_SESSION['id'] != $this->commentRequest->getInput('author')) {
             header('Location: /blog/article/?article=' . $this->commentRequest->getInput('slug'));
             return;
         } else if ($_SESSION['id'] == $this->commentRequest->getInput('author')) {
@@ -43,15 +42,16 @@ class CommentController
         }
     }
 
-    public function update(){
-            if ($_SESSION['id'] != $this->commentRequest->getInput('comm_author')) {
+    public function update()
+    {
+        if ($_SESSION['id'] != $this->commentRequest->getInput('comm_author')) {
             header('Location: /blog/article/?article=' . $this->commentRequest->getInput('redirect_comm'));
             return;
-    }else{
-        $this->comment->updateComment($this->commentRequest->getInput('id_comment'),$this->commentRequest->getInput('new_content'));
-        header('Location: /blog/article/?article=' . $this->commentRequest->getInput('redirect_comm'));
-        return;
+        } else {
+            $this->comment->updateComment($this->commentRequest->getInput('id_comment'), $this->commentRequest->getInput('new_content'));
 
+            header('Location: /blog/article/?article=' . $this->commentRequest->getInput('redirect_comm'));
+            return;
+        }
     }
-}
 }

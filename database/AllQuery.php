@@ -136,7 +136,7 @@ class AllQuery extends Query
         return $draft;
     }
 
-    public function postdraft($title, $slug, $summary, $body, $image, $thumbnail, $category_id, $metadata, $user_id,$id1)
+    public function postdraft($title, $slug, $summary, $body, $image, $thumbnail, $category_id, $metadata, $user_id, $id1)
     {
         $query = "UPDATE article SET title= :title,slug=:slug,summary=:summary,body=:body, image=:image,thumbnail=:thumbnail,category_id=:category_id,meta_data=:metadata,user_id=:user_id,draft='1' WHERE id=:id1 ";
         $statment = $this->pdo->prepare($query);
@@ -162,18 +162,17 @@ class AllQuery extends Query
         return $statment->fetchAll();
     }
 
-    public function articleComments($article_title){
-        $query="SELECT comment.user_id AS user_id, comment.id AS comment_id, comment.comment_body AS comment_body, user.username AS username, article.title AS title FROM ((comment INNER JOIN user ON comment.user_id=user.id) INNER JOIN article ON comment.article_id=article.id)  ";
+    public function articleComments($article_title)
+    {
+        $query = "SELECT comment.user_id AS user_id, comment.id AS comment_id, comment.comment_body AS comment_body, user.username AS username, article.title AS title FROM ((comment INNER JOIN user ON comment.user_id=user.id) INNER JOIN article ON comment.article_id=article.id)  ";
         $statment = $this->pdo->prepare($query);
         $statment->execute();
-        $result0=$statment->fetchAll();
-        $query=$query."WHERE title=:title ";
+        $result0 = $statment->fetchAll();
+        $query = $query . "WHERE title=:title ";
         $statment = $this->pdo->prepare($query);
         $statment->bindParam(":title", $article_title, PDO::PARAM_STR);
         $statment->execute();
-        $result1=$statment->fetchAll();
-        return [$result0,$result1];
+        $result1 = $statment->fetchAll();
+        return [$result0, $result1];
     }
-
-    
 }

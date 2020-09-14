@@ -8,6 +8,9 @@
 
 
 <section>
+    <nav style="height:60px;background-color:#7386D5;" class="navbar fixed-top navbar">
+        <a class="navbar-brand" style="color:white" href="/index">Home</a>
+    </nav>
     <div class="container">
         <h2><?php echo $article['title']; ?></h2>
 
@@ -42,8 +45,10 @@
                                 <input type="hidden" name="comment_id" value=<?php echo $comment['comment_id']; ?>>
                                 <input type="hidden" name="author" value=<?php echo $comment['user_id']; ?>>
                                 <input type="hidden" name="slug" value=<?php echo $article['slug']; ?>>
+
+
                                 <button type="submit" class="btn btn-danger  ml-2">Delete</button></form>
-                            <button  style="float: right;" class="btn btn-primary edit-comment " onclick=editComment(<?php echo $i; ?>,<?php echo $comment['comment_id']; ?>,<?php echo '\'' . base64_encode($comment['comment_body']) . '\''; ?>,<?php echo $comment['user_id']; ?>,<?php echo '\'' . base64_encode($article['slug']) . '\''; ?>);>Edit</button>
+                            <button style="float: right;" class="btn btn-primary edit-comment " onclick=editComment(<?php echo $i; ?>,<?php echo $comment['comment_id']; ?>,<?php echo '\'' . base64_encode($comment['comment_body']) . '\''; ?>,<?php echo $comment['user_id']; ?>,<?php echo '\'' . base64_encode($article['slug']) . '\''; ?>);>Edit</button>
                         </div> <?php } ?>
                     <p id="paragraph<?php echo $i; ?>" style="word-break: break-word;"><?php echo $comment['comment_body']; ?></p>
 
@@ -96,14 +101,12 @@ unset($_SESSION['message']); ?>
 
 
 <script>
-
-    
-
     function editComment(i, commment_id, comment_body, author, slug) {
-var x=atob(comment_body);
 
 
-        $("#replace" + i + "").html("<form method='POST' action='/comment/update'><div class='form-group'><textarea class='form-control' name='new_content'>"+ atob(comment_body)+"</textarea><input type='hidden' name='comm_author' value=" + author + "></div><input type='hidden' name='id_comment' value=" + commment_id + "><input type='hidden' name='redirect_comm' value=" + atob(slug) + "><button type='submit' class='btn btn-primary'>Comment</button></form>");
+
+        $("#replace" + i + "").html("<form method='POST' action='/comment/update'><div class='form-group'><textarea class='form-control' name='new_content'>" + atob(comment_body) + "</textarea><input type='hidden' name='comm_author' value=" + author + "></div><input type='hidden' name='id_comment' value=" + commment_id + "><input type='hidden' name='redirect_comm' value=" + atob(slug) + "><button type='submit' class='btn btn-primary'>Comment</button></form>");
         $("#paragraph" + i).hide();
+
     }
 </script>

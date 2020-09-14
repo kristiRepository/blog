@@ -1,6 +1,7 @@
-<?php 
+<?php
 
-class Comment{
+class Comment
+{
 
     protected $conn;
     protected $query;
@@ -10,55 +11,56 @@ class Comment{
     private $user_id;
     private $article_id;
 
-    public function __construct(){
+    public function __construct()
+    {
 
         $config = require('config.php');
         $this->conn = Connection::create($config);
         $this->query = new AllQuery($this->conn);
     }
 
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getCommentBody(){
+    public function getCommentBody()
+    {
         return $this->comment_body;
     }
 
-    public function getUserId(){
+    public function getUserId()
+    {
         return $this->user_id;
     }
 
-    public function getArticleId(){
+    public function getArticleId()
+    {
         return $this->article_id;
     }
 
-    public function add($name){
-        $this->query->insert('comment',['comment_body','article_id','user_id'],$name);
+    public function add($name)
+    {
+        $this->query->insert('comment', ['comment_body', 'article_id', 'user_id'], $name);
     }
 
-    public function articleComments($article_title){
+    public function articleComments($article_title)
+    {
         return $this->query->articleComments($article_title);
     }
 
-    public function getAllComments(){
+    public function getAllComments()
+    {
         return $this->query->articleComments('h');
     }
 
-    public function delete($comment_id){
-        $this->query->delete('comment','id',$comment_id);
+    public function delete($comment_id)
+    {
+        $this->query->delete('comment', 'id', $comment_id);
     }
 
-    public function updateComment($id,$value){
-        $this->query->update('comment','comment_body',$value,'id',$id);
-        }
-
-
-
-
-
-
-
-
-
+    public function updateComment($id, $value)
+    {
+        $this->query->update('comment', 'comment_body', $value, 'id', $id);
+    }
 }

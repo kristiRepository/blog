@@ -23,7 +23,7 @@
             foreach ($allarticles as $article) {
               if ($article['status'] == 'published' && $article['is_feature'] == 1) { ?>
                 <div class="carousel-item <?php if ($i == 0) echo "active"; ?> ">
-                <a href="/blog/article/?article=<?php echo $article['slug']; ?>"><img src="<?php echo "/" . $article['image']; ?>" width="1000px" height="370px"></a>
+                  <a href="/blog/article/?article=<?php echo $article['slug']; ?>"><img src="<?php echo "/" . $article['image']; ?>" width="1000px" height="370px"></a>
                 </div>
             <?php $i++;
               }
@@ -55,7 +55,7 @@
 
             <article>
               <p>
-                <?php echo substr($result['summary'],0,320);?>
+                <?php echo substr($result['summary'], 0, 320); ?>
               </p>
             </article>
             <a class="btn btn-blog pull-right marginBottom10" href="/blog/article/?article=<?php echo $result['slug']; ?>">READ MORE</a>
@@ -73,7 +73,7 @@
 
             <article>
               <p>
-                <?php echo substr($article['summary'],0,320);?>
+                <?php echo substr($article['summary'], 0, 320); ?>
               </p>
             </article>
             <a class="btn btn-blog pull-right marginBottom10" href="/blog/article/?article=<?php echo $article['slug']; ?>">READ MORE</a>
@@ -92,7 +92,7 @@
           for ($i = 1; $i <= $total_links; $i++) {
           ?>
             <li class="page-item"><a href="/index/?<?php if (isset($_GET['tag'])) echo "tag=" . $_GET['tag'] . "&";
-                                                    if (isset($_GET['category'])) echo "category=" . $_GET['category'] . "&"; ?>page=<?php echo $i; ?>" id=<?php echo $i; ?> class="page-link"><?php echo $i; ?></a></li>
+          if (isset($_GET['category'])) echo "category=" . $_GET['category'] . "&"; ?>page=<?php echo $i; ?>" id=<?php echo $i; ?> class="page-link"><?php echo $i; ?></a></li>
 
           <?php } ?>
         </ul>

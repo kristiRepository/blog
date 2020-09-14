@@ -3,11 +3,10 @@
 class UserRequest extends Request implements ValidateInterface
 {
 
-  
+
     public function __construct($request)
     {
         $this->input = $request->input();
-        
     }
 
 
@@ -64,36 +63,35 @@ class UserRequest extends Request implements ValidateInterface
     {
 
         if (is_null($this->getInput('username'))) {
-         
+
             session_start();
             $_SESSION['message'] = "Username not set";
             header("Location: /");
             return true;
         }
         if (is_null($this->getInput('password'))) {
-           
+
             session_start();
             $_SESSION['message'] = "Password not set";
             header("Location: /");
             return true;
         }
         return false;
-
     }
 
-    public function verify(){
+    public function verify()
+    {
 
-        
+
         if (is_null($this->getInput('vkey'))) {
-            
-              return false; 
-            
+
+            return false;
         }
         return true;
-        
     }
 
-    public function recover(){
+    public function recover()
+    {
         if ($this->getInput('recovery-email')) {
             $email = $this->test($this->getInput('recovery-email'));
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -102,7 +100,6 @@ class UserRequest extends Request implements ValidateInterface
                 header("Location: /forgot_pass");
                 return;
             }
-           
         } else {
             session_start();
             $_SESSION['e-message'] = "Email not set";
@@ -113,20 +110,21 @@ class UserRequest extends Request implements ValidateInterface
         return $email;
     }
 
-    public function validateUpdate(){
+    public function validateUpdate()
+    {
 
         $vkey = "";
-        if ( $this->getInput('vkey')) {
+        if ($this->getInput('vkey')) {
             $vkey = $this->getInput('vkey');
             return $vkey;
         } else {
             header('Location: /');
             return;
         }
-        
     }
 
-    public function confirm(){
+    public function confirm()
+    {
         $vkey = "";
         if ($this->getInput('vkey')) {
             $vkey = $this->getInput('vkey');
@@ -147,7 +145,6 @@ class UserRequest extends Request implements ValidateInterface
                 header("Location: /reset-password/?vkey={$vkey}");
                 return true;
             }
-            
         } else {
             session_start();
             $_SESSION['e-message'] = "Password not set";
@@ -156,9 +153,5 @@ class UserRequest extends Request implements ValidateInterface
         }
 
         return false;
-
-    
     }
-
- 
 }

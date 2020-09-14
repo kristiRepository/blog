@@ -1,4 +1,3 @@
-
 <nav id="sidebar">
     <div class="sidebar-header">
         <h3>Personal Blog</h3>
@@ -9,10 +8,10 @@
         <li>
             <a href="/index">Home</a>
         </li>
-        <?php if($_SESSION['user_role'] == 'admin'){ ?>
-        <li>
-            <a href="/dashboard/index">Dashboard</a>
-        </li>
+        <?php if ($_SESSION['user_role'] == 'admin') { ?>
+            <li>
+                <a href="/dashboard/index">Dashboard</a>
+            </li>
         <?php } ?>
         <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><?php echo $_SESSION['username'] ?></a>
@@ -25,32 +24,33 @@
 
 
     </ul>
-    
+
     <ul class="list-unstyled pl-2">
         <li>
-        <a href="/blog/create">Add new post</a>
+            <a href="/blog/create">Add new post</a>
         </li>
+        <?php if(! empty($mydrafts)){  ?>
         <li>
-        <a href="#"  onclick="show();" id="draft">My Drafts</a>
+            <a href="#" onclick="show();" id="draft">My Drafts</a>
         </li>
         <ul style="display:none" class="list-unstyled pl-2" id="list">
-            <?php foreach($mydrafts as $mydraft){ ?>
+            <?php foreach ($mydrafts as $mydraft) { ?>
                 <li><a href="/blog/edit/?article=<?php echo $mydraft['slug'] ?>"><?php echo $mydraft['title']; ?></a></li>
             <?php } ?>
         </ul> 
+            <?php } ?>
     </ul>
 
 
 </nav>
 
 <script>
-      function show(){
-          event.preventDefault();
-        if(document.querySelector("#list").style.display == "none"){
-        document.querySelector("#list").style.display = "grid";
+    function show() {
+        event.preventDefault();
+        if (document.querySelector("#list").style.display == "none") {
+            document.querySelector("#list").style.display = "grid";
+        } else {
+            document.querySelector("#list").style.display = "none";
+        }
     }
-   else{
-        document.querySelector("#list").style.display = "none";
-    }
-      }
 </script>

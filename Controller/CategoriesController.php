@@ -6,7 +6,7 @@ class CategoriesController
 
     protected $categoryRequest;
     protected $category;
-  
+
 
     public function __construct($request)
     {
@@ -15,7 +15,8 @@ class CategoriesController
     }
 
 
-    public function create(){
+    public function create()
+    {
 
         if ($this->categoryRequest->validateCreate()) {
             return;
@@ -25,27 +26,27 @@ class CategoriesController
         header('Location: /dashboard/categories');
     }
 
-    public function edit(){
+    public function edit()
+    {
 
         if ($this->categoryRequest->validateCheck()) {
             return;
         };
 
-        $this->category->edit($this->categoryRequest->getInput('edit-name'),$this->categoryRequest->getInput('category_id'));
+        $this->category->edit($this->categoryRequest->getInput('edit-name'), $this->categoryRequest->getInput('category_id'));
         session_start();
-        $_SESSION['success']="Category edited successfully";
+        $_SESSION['success'] = "Category edited successfully";
         header('Location: /dashboard/categories');
     }
 
-    public function delete(){
+    public function delete()
+    {
         if ($this->categoryRequest->validateUpdate()) {
             return;
         };
         $this->category->delete($this->categoryRequest->getInput('delete_category'));
         session_start();
-        $_SESSION['success']="Category deleted successfully";
+        $_SESSION['success'] = "Category deleted successfully";
         header('Location: /dashboard/categories');
-
-
     }
 }

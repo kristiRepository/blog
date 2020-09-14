@@ -10,8 +10,9 @@
             <?php session_start();
             if (isset($_SESSION['e-message'])) { ?>
                 <div class="alert alert-danger"><?php echo $_SESSION['e-message']; ?></div>
-            <?php unset($_SESSION['e-message']); }
-             ?>
+            <?php unset($_SESSION['e-message']);
+            }
+            ?>
 
             <p>Please enter your email account so we can assist you in recovering your account</p>
 
@@ -22,10 +23,10 @@
                 </div>
                 <div class="form-group">
                     <button type="submit" name="forgot-password" class="btn btn-black">
-                    Recover your password
+                        Recover your password
                     </button>
                 </div>
-             
+
 
 
 
@@ -39,8 +40,8 @@
 
 
 
-</div>
-</div>
+        </div>
+    </div>
 </div>
 
 

@@ -1,39 +1,36 @@
+.popup,
+.edit-popup {
+  background: (0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-  
-  .popup,
-  .edit-popup {
-    background: (0, 0, 0, 0.6);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .edit-popup-content,
-  .popup-content {
-    border-style: solid;
-    height: 400px;
-    width: 400px;
-    background: whitesmoke;
-    padding: 20px;
-    border-radius: 5px;
-    position: relative;
-  }
-  
-  .close,
-  .edit-close {
-    border-style: solid;
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    background: white;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    box-shadow: 6px 6px 29px -4px (0, 0, 0, 0.75);
-  }
-  
+.edit-popup-content,
+.popup-content {
+  border-style: solid;
+  height: 400px;
+  width: 400px;
+  background: whitesmoke;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.close,
+.edit-close {
+  border-style: solid;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background: white;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  box-shadow: 6px 6px 29px -4px (0, 0, 0, 0.75);
+}

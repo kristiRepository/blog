@@ -78,9 +78,9 @@ class Article
         return $this->user_id;
     }
 
-    public function getAllArticles($start,$limit)
+    public function getAllArticles($start, $limit)
     {
-        return $this->query->allArticlesWithUsersWithCategories($start,$limit);
+        return $this->query->allArticlesWithUsersWithCategories($start, $limit);
     }
 
     public function mark($postId)
@@ -122,97 +122,103 @@ class Article
         return $this->query->limitCategoryArticles($like, $query, $start, $limit);
     }
 
-   protected function resizejpeg($file,$max_resolution){
+    protected function resizejpeg($file, $max_resolution)
+    {
 
-        $original_image=imagecreatefromjpeg($file);
+        $original_image = imagecreatefromjpeg($file);
 
         //resolution 
-        $original_width=imagesx($original_image);
-        $original_height=imagesy($original_image);
+        $original_width = imagesx($original_image);
+        $original_height = imagesy($original_image);
 
-        $ratio=$max_resolution/$original_width;
-        $new_width=$max_resolution;
-        $new_height=$original_height * $ratio;
+        $ratio = $max_resolution / $original_width;
+        $new_width = $max_resolution;
+        $new_height = $original_height * $ratio;
 
-        if($new_height>$max_resolution){
-            $ratio=$max_resolution/$original_height;
-            $new_height=$max_resolution;
-            $new_width=$original_width * $ratio;
+        if ($new_height > $max_resolution) {
+            $ratio = $max_resolution / $original_height;
+            $new_height = $max_resolution;
+            $new_width = $original_width * $ratio;
         }
 
-        $new_image=imagecreatetruecolor($new_width,$new_height);
-        imagecopyresampled($new_image,$original_image,0,0,0,0,$new_width,$new_height,$original_width,$original_height);
-        imagejpeg($new_image,$file,90);
+        $new_image = imagecreatetruecolor($new_width, $new_height);
+        imagecopyresampled($new_image, $original_image, 0, 0, 0, 0, $new_width, $new_height, $original_width, $original_height);
+        imagejpeg($new_image, $file, 90);
 
-        $watermark=imagecreatefrompng('watermark.png');
-        $margin_right=10;
-        $margin_bottom=10;
+        $watermark = imagecreatefrompng('watermark.png');
+        $margin_right = 10;
+        $margin_bottom = 10;
 
-        $sx=imagesx($watermark);
-        $sy=imagesy($watermark);
+        $sx = imagesx($watermark);
+        $sy = imagesy($watermark);
 
-        $img=imagecreatefromjpeg($file);
-        imagecopy($img,$watermark,imagesx($img)-$sx-$margin_right,imagesy($img)-$sy-$margin_bottom,0,0,$sx,$sy);
-        $i=imagejpeg($img,$file);
-
-
-
+        $img = imagecreatefromjpeg($file);
+        imagecopy($img, $watermark, imagesx($img) - $sx - $margin_right, imagesy($img) - $sy - $margin_bottom, 0, 0, $sx, $sy);
+        $i = imagejpeg($img, $file);
     }
 
 
 
-    public function resizeImage($image){
-  $file="";
+    public function resizeImage($image)
+    {
+        $file = "";
 
-        if($_FILES[$image]['type']=='image/jpeg'){
-            $type= substr(strrchr($_FILES['image']['name'],'.'),1);
-            $i=strlen($type);
-            $name=substr($_FILES['image']['name'],0,strlen($_FILES['image']['name'])-$i-1);
-            move_uploaded_file($_FILES[$image]['tmp_name'],'views/blog/blogphotos/'.$name.time().".".$type);
-            copy('views/blog/blogphotos/'.$name.time().".".$type,'views/blog/originalblogphotos/'.$name.time().".".$type);
-            $original='views/blog/originalblogphotos/'.$name.time().".".$type;
-            $file='views/blog/blogphotos/'.$name.time().".".$type;
+        if ($_FILES[$image]['type'] == 'image/jpeg') {
+            $type = substr(strrchr($_FILES['image']['name'], '.'), 1);
+            $i = strlen($type);
+            $name = substr($_FILES['image']['name'], 0, strlen($_FILES['image']['name']) - $i - 1);
+            move_uploaded_file($_FILES[$image]['tmp_name'], 'views/blog/blogphotos/' . $name . time() . "." . $type);
+            copy('views/blog/blogphotos/' . $name . time() . "." . $type, 'views/blog/originalblogphotos/' . $name . time() . "." . $type);
+            $original = 'views/blog/originalblogphotos/' . $name . time() . "." . $type;
+            $file = 'views/blog/blogphotos/' . $name . time() . "." . $type;
 
-            $this->resizejpeg($file,'300');
-
-          
+            $this->resizejpeg($file, '300');
         }
-     return [$original,$file];
+        return [$original, $file];
     }
 
-    public function add($data){
-        $this->query->insert('article',['title','slug','summary','body','image','thumbnail','category_id','status','is_feature','meta_data','user_id','draft'],$data);
+    public function add($data)
+    {
+        $this->query->insert('article', ['title', 'slug', 'summary', 'body', 'image', 'thumbnail', 'category_id', 'status', 'is_feature', 'meta_data', 'user_id', 'draft'], $data);
     }
 
-    public function getLastId($title){
-        return $this->query->select('article',$title,'title');
+    public function getLastId($title)
+    {
+        return $this->query->select('article', $title, 'title');
     }
 
-    public function myDrafts(){
+    public function myDrafts()
+    {
         return $this->query->mydrafts($_SESSION['id']);
     }
 
-    public function getDraft($slug){
-        return $this->query->getdraft($slug,$_SESSION['id']);
+    public function getDraft($slug)
+    {
+        return $this->query->getdraft($slug, $_SESSION['id']);
     }
 
-    public function getDraftTags($article){
-        return $this->query->select('article_tag',$article,'article_id');
+    public function getDraftTags($article)
+    {
+        return $this->query->select('article_tag', $article, 'article_id');
     }
 
-    public function unchainTags($article){
-        $this->query->delete('article_tag','article_id',$article);
+    public function unchainTags($article)
+    {
+        $this->query->delete('article_tag', 'article_id', $article);
     }
 
-    public function postDraft($title,$slug,$summary,$body,$image,$thumbnail,$category_id,$metadata,$title1){
-        $this->query->postdraft($title,$slug,$summary,$body,$image,$thumbnail,$category_id,$metadata,$_SESSION['id'],$title1);
+    public function postDraft($title, $slug, $summary, $body, $image, $thumbnail, $category_id, $metadata, $title1)
+    {
+        $this->query->postdraft($title, $slug, $summary, $body, $image, $thumbnail, $category_id, $metadata, $_SESSION['id'], $title1);
     }
 
-    public function deleteDraft($article){
-        $this->query->delete('article','id',$article);
+    public function deleteDraft($article)
+    {
+        $this->query->delete('article', 'id', $article);
     }
 
-    public function getSingleArticle($title){
-       return $this->query->getSingleArticle($title);
+    public function getSingleArticle($title)
+    {
+        return $this->query->getSingleArticle($title);
     }
 }

@@ -5,15 +5,15 @@
 
 
 <div class="sidenav">
-         <div class="login-main-text">
-            
-            <h2>Register from here to access.</h2>
-         </div>
-      </div>
+    <div class="login-main-text">
 
-      <div class="main">
-         <div class="col-md-6 col-sm-12">
-            <div class="login-form">
+        <h2>Register from here to access.</h2>
+    </div>
+</div>
+
+<div class="main">
+    <div class="col-md-6 col-sm-12">
+        <div class="login-form">
             <?php
             if (isset($_SESSION['message'])) { ?>
                 <div class="alert alert-danger"><?php echo $_SESSION['message']; ?></div>
@@ -38,10 +38,10 @@
                 </div>
                 <input style="width: 150px;" class="btn btn-black" name="signup" type="submit" value="Sign up" required>
 
-        
-        </form>
+
+            </form>
+        </div>
     </div>
-</div>
 </div>
 
 

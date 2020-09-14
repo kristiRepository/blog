@@ -18,21 +18,20 @@ class AuthController
         $this->conn = Connection::create($config);
         $this->query = new AllQuery($this->conn);
         $this->userRequest = new UserRequest($request);
-        
     }
 
 
     public function login()
     {
-        $message="You need to verify your email address";
-    if($this->userRequest->verify()){
-   $vkey = $this->userRequest->getInput('vkey');
+        $message = "You need to verify your email address";
+        if ($this->userRequest->verify()) {
+            $vkey = $this->userRequest->getInput('vkey');
             $result = $this->query->setVerified($vkey);
             if ($result) {
-               $message= "Your email has been verified";
+                $message = "Your email has been verified";
             }
-    }
-    
+        }
+
 
         require('views/auth/login.php');
     }
@@ -51,31 +50,33 @@ class AuthController
         if ($this->userRequest->validateCreate()) {
             return;
         };
-        $result = $this->query->select('user',$this->userRequest->getInput('username'), 'username');
-            if (!empty($result)) {
-                session_start();
-                $_SESSION['message'] = "Username exists";
-                header("Location: /signup");
-                return;
-            }
-        $exist = $this->query->select('user',$this->userRequest->getInput('email'), 'email');
-            if (!empty($exist)) {
-                session_start();
-                $_SESSION['message'] = "Email exists";
-                header("Location: /signup");
-                return ;
-            }
+        $result = $this->query->select('user', $this->userRequest->getInput('username'), 'username');
+        if (!empty($result)) {
+            session_start();
+            $_SESSION['message'] = "Username exists";
+            header("Location: /signup");
+            return;
+        }
+        $exist = $this->query->select('user', $this->userRequest->getInput('email'), 'email');
+        if (!empty($exist)) {
+            session_start();
+            $_SESSION['message'] = "Email exists";
+            header("Location: /signup");
+            return;
+        }
 
 
         $vkey = md5(time() . $this->userRequest->getInput('username'));
         $password = password_hash($this->userRequest->getInput('password'), PASSWORD_DEFAULT);
-        $this->query->insert('user',['username','password','email','vkey'],[$this->userRequest->getInput('username'),
+        $this->query->insert('user', ['username', 'password', 'email', 'vkey'], [
+            $this->userRequest->getInput('username'),
             $password,
             $this->userRequest->getInput('email'),
-            $vkey] );
+            $vkey
+        ]);
 
 
-        Mail::sendEmail($this->userRequest->getInput('email'),$this->userRequest->getInput('username'),$vkey);
+        Mail::sendEmail($this->userRequest->getInput('email'), $this->userRequest->getInput('username'), $vkey);
         header("Location: /verify");
     }
 
@@ -83,12 +84,12 @@ class AuthController
     public function check()
     {
 
-        
+
         if ($this->userRequest->validateCheck()) {
             return;
         }
-        $result = $this->query->select('user',$this->userRequest->getInput('username'), 'username');
-        $user="";
+        $result = $this->query->select('user', $this->userRequest->getInput('username'), 'username');
+        $user = "";
 
         if (empty($result)) {
             session_start();
@@ -110,12 +111,12 @@ class AuthController
             $_SESSION['message'] = "User is not verified";
             header("Location: /");
             return;
-        } 
+        }
 
 
         $_SESSION['id'] = $user[0]['id'];
         $_SESSION['username'] = $user[0]['username'];
-        $_SESSION['user_role']=$user[0]['user_role'];
+        $_SESSION['user_role'] = $user[0]['user_role'];
 
         User::setCookie([$this->userRequest->getInput('username'), $this->userRequest->getInput('password')]);
         header("Location: /index");
@@ -147,7 +148,7 @@ class AuthController
         if ($this->userRequest->recover() == null) {
             return;
         }
-        $exist = $this->query->select('user',$this->userRequest->getInput('recovery-email'), 'email');
+        $exist = $this->query->select('user', $this->userRequest->getInput('recovery-email'), 'email');
         if (empty($exist)) {
             session_start();
             $_SESSION['e-message'] = "Email not registered";
@@ -155,7 +156,7 @@ class AuthController
             return;
         }
 
-        $result = $this->query->select('user',$this->userRequest->getInput('recovery-email'), 'email');
+        $result = $this->query->select('user', $this->userRequest->getInput('recovery-email'), 'email');
         Mail::sendPassword($this->userRequest->getInput('recovery-email'), $result[0]['username'], $result[0]['vkey']);
 
         header("Location: /verify");
@@ -181,9 +182,7 @@ class AuthController
         $vkey = $this->userRequest->getInput('vkey');
         $password = password_hash($this->userRequest->getInput('password'), PASSWORD_DEFAULT);
 
-        $this->query->update('user','password',$password,'vkey',$vkey);
+        $this->query->update('user', 'password', $password, 'vkey', $vkey);
         header('Location: /');
     }
-
-    
 }

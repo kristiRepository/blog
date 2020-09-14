@@ -14,8 +14,8 @@ class AdminMiddleware
 
     public function isAdmin()
     {
-       
-        
+
+
         if ($_SESSION['user_role'] != 'admin') {
             header("Location: /index");
             return true;

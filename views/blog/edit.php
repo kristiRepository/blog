@@ -8,23 +8,25 @@
             Modify Draft
         </div>
         <div class="card-body">
-        <?php
+            <?php
             if (isset($_SESSION['message'])) { ?>
                 <div class="alert alert-danger"><?php echo $_SESSION['message']; ?></div>
-            <?php  }  unset($_SESSION['message']);?>
+            <?php  }
+            unset($_SESSION['message']); ?>
             <form action="/blog/update" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" name="title" id="title" value=<?php echo $draft['title']; ?>  class="form-control" required>
+                    <textarea name="title" id="title" class="form-control" placeholder="Enter article title" rows="1" required><?php echo $draft['title']; ?></textarea>
+
                 </div>
                 <div class="form-group">
                     <label for="summary">Summary</label>
-                    <textarea name="summary" id="summary" class="form-control"  required><?php echo $draft['summary']; ?></textarea>
+                    <textarea name="summary" id="summary" class="form-control" required><?php echo $draft['summary']; ?></textarea>
                 </div>
-               
+
                 <div class="form-group">
                     <label for="body">Body</label>
-                    <textarea name="body" id=myTextarea  class="form-control" required><?php echo $draft['body']; ?></textarea>
+                    <textarea name="body" id=myTextarea class="form-control" required><?php echo $draft['body']; ?></textarea>
                 </div>
                 <div class="form-group">
                     <label for="image">Select article image</label>
@@ -34,7 +36,7 @@
                     <label for="category">Select Category</label><br>
                     <select name="category" required>
                         <?php foreach ($categories as $category) { ?>
-                            <option value=<?php echo $category->getId(); ?> ><?php echo $category->getName(); ?></option>
+                            <option value=<?php echo $category->getId(); ?>><?php echo $category->getName(); ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -46,26 +48,27 @@
                 <div class='form-group'>
                     <label for='tags'>Tags</label>
                     <select name="tags[]" id='tags' class="form-control tags-selector" multiple>
-                        <?php foreach($tags as $tag){ ?>
-                            <option value=<?php echo $tag->getId();?> ><?php echo $tag->getName(); ?></option>
-                        <?php  }?>
+                        <?php foreach ($tags as $tag) { ?>
+                            <option value=<?php echo $tag->getId(); ?>><?php echo $tag->getName(); ?></option>
+                        <?php  } ?>
                     </select>
                 </div>
-                <input type="hidden" name="id1" value=<?php echo $draft['id']; ?> >
-                <input type="hidden" name="image1" value=<?php echo $draft['image']; ?> >
-                <input type="hidden" name="thumbnail1" value=<?php echo $draft['thumbnail']; ?> >
-                <input type="hidden" name="category1" value=<?php echo $draft['category_id']; ?> >
-                <?php foreach($drafttags as $drafttag){ ?>
-                    <input type="hidden" name="tags1[]" value= <?php echo $drafttag['tag_id'] ?> >
+
+                <input type="hidden" name="id1" value=<?php echo $draft['id']; ?>>
+                <input type="hidden" name="image1" value=<?php echo $draft['image']; ?>>
+                <input type="hidden" name="thumbnail1" value=<?php echo $draft['thumbnail']; ?>>
+                <input type="hidden" name="category1" value=<?php echo $draft['category_id']; ?>>
+                <?php foreach ($drafttags as $drafttag) { ?>
+                    <input type="hidden" name="tags1[]" value=<?php echo $drafttag['tag_id'] ?>>
                 <?php } ?>
-                <input type="hidden" name="id1" value=<?php echo $draft['id']; ?> >
+                <input type="hidden" name="id1" value=<?php echo $draft['id']; ?>>
                 <button class="btn btn-primary " type="submit" name="submit" value="edit">Add Article</button>
-                
+
             </form>
             <form method="POST" action="/blog/delete">
-            <input type="hidden" name="draft_id" value=<?php  echo $draft['id']; ?> >
-            <br>
-            <button class="btn btn-danger" type="submit" name="submit">Delete Draft</button>
+                <input type="hidden" name="draft_id" value=<?php echo $draft['id']; ?>>
+                <br>
+                <button class="btn btn-danger" type="submit" name="submit">Delete Draft</button>
             </form>
         </div>
     </div>
@@ -85,7 +88,7 @@
 <?php include('views/blog/partials/footer.php'); ?>
 
 <script>
-      tinymce.init({
-    selector: '#myTextarea'
-});
+    tinymce.init({
+        selector: '#myTextarea'
+    });
 </script>
