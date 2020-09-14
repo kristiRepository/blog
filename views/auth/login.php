@@ -1,23 +1,29 @@
 <?php include('views/partials/header.php');   ?>
 
+<link rel="stylesheet" type="text/css" href="/views/auth/style/login.css">
+
+
 <?php
 
 if(isset($_GET['vkey'])){
     if(isset($message)){
-        echo "<p style='background-color:lightgreen;'>".$message."</p>";
+        echo "<p style='background-color:lightgreen;text-align:right'>".$message."</p>";
     }
 }
 
 
 ?>
 
+<div class="sidenav">
+         <div class="login-main-text">
+            <h2>Personal Blog</h2>
+            <p>Login or register from here to access.</p>
+         </div>
+      </div>
 
-<div class="container">
-    <div class="card card-default " style="width:500px;margin:auto; margin-top:100px;">
-        <div class="card-header">
-            <h3>Login</h3>
-        </div>
-        <div class="card-body">
+      <div class="main">
+         <div class="col-md-6 col-sm-12">
+            <div class="login-form">
             <?php
             if (isset($_SESSION['message'])) { ?>
                 <div class="alert alert-danger"><?php echo $_SESSION['message']; ?></div>
@@ -31,14 +37,14 @@ if(isset($_GET['vkey'])){
                     <label for="password">Password</label>
                     <input class="form-control" type="password" name="password" required value=<?php if(isset($_COOKIE['password'])){echo $_COOKIE['password'];}  ?> >
                 </div >
-                <input style="width: 150px;" class="btn btn-primary" name="login" type="submit" value="Login">
-                <span class="ml-4"><a href="/signup">Sign up</a></span> 
-                <div style="margin-top:6px" class="form-group">
+                <input style="width: 150px;" class="btn btn-black" name="login" type="submit" value="Login">
+                <span class="ml-4"><a href="/signup" class="btn btn-grey">Sign up</a></span> 
+                <div style="margin-top:6px ;margin-left:7px;" class="form-group">
                     <input type="checkbox" name="remember" <?php if(isset($_COOKIE['username'])){echo "checked";}?> >
                     <label for="remember">Remember me</label>
                 </div>
-                <div style="margin-top:20px"><a class="pl-1" href="/forgot_pass">Forgot your password?</a></div>
-        </div>
+                <div><a class="pl-1" href="/forgot_pass">Forgot your password?</a></div>
+      
        
         </form>
     </div>

@@ -24,7 +24,7 @@
           <td><?php echo $user->getEmail(); ?></td>
           <td><?php echo $user->getCreateDate(); ?></td>
           <td><?php echo $user->getUserRole(); ?></td>
-          <td style="text-align: center; <?php if($user->getUserRole()=="admin"){echo "background-color:grey"; } ?>"><?php if($user->getUserRole()=="subscriber"){echo "<form action='/dashboard/make-admin' method='POST'><input  value=".$user->getId()." type='hidden' name='user_id'><button class='btn btn-success'>Make Admin</button></form>";} ?></td>
+          <td style="text-align: center;"><?php if($user->getUserRole()=="subscriber"){echo "<form action='/dashboard/make-admin' method='POST'><input  value=".$user->getId()." type='hidden' name='user_id'><button class='btn btn-success'>Make Admin</button></form>";} ?> <?php if($user->getUserRole()=="admin"){echo "<img src='/views/blog/dashboard/style/admin.png' width='40px;'>"; } ?></td>
           </tr>
         <?php } ?>
         </table>

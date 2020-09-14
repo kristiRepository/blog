@@ -17,6 +17,10 @@ $router->get('index','BlogController@index@notLoggedIn@');
 
 $router->get('blog/create','BlogController@create@notLoggedIn@');
 $router->post('blog/store','BlogController@store@notLoggedIn@');
+$router->post('blog/draft','BlogController@draft@notLoggedIn@');
+$router->post('blog/update','BlogController@update@notLoggedIn@');
+
+
 $router->get('blog/edit','BlogController@edit@notLoggedIn@');
 $router->get('blog/article','BlogController@show@notLoggedIn@');
 $router->post('blog/delete','BlogController@delete@notLoggedIn@');
@@ -43,3 +47,5 @@ $router->post('dashboard/article/unpublish-article','ArticleController@unpublish
 
 $router->get('dashboard/comments','DashboardController@comments@notLoggedIn@isAdmin');
 $router->post('add-comment','CommentController@add@notLoggedIn@');
+$router->post('comment/delete','CommentController@delete@notLoggedIn@');
+$router->post('comment/update','CommentController@update@notLoggedIn@');

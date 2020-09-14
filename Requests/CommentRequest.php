@@ -14,7 +14,7 @@ class CommentRequest extends Request implements ValidateInterface
         if (is_null($this->getInput('comment')) || $this->getInput('comment')=="") {
             session_start();
             $_SESSION['message'] = "Comment not added";
-            header("Location: /article/?article=".$this->getInput('slug'));
+            header("Location: /blog/article/?article=".$this->getInput('slug'));
             return true;
         }
         return false;

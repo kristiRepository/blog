@@ -26,7 +26,7 @@
 </div>
 <input type="hidden" name="vkey" value=<?php echo $vkey; ?> >
 <div class="form-group">
-    <button type="submit" name="submit" class="btn btn-primary">
+    <button type="submit" name="submit" class="btn btn-black">
     Reset password
     </button>
 </div>

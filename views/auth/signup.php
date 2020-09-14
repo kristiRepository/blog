@@ -1,12 +1,19 @@
 <?php include('views/partials/header.php');   ?>
 
+<link rel="stylesheet" type="text/css" href="/views/auth/style/login.css">
 
-<div class="container ">
-    <div class="card card-default " style="width:500px;margin:auto; margin-top:100px;">
-        <div class="card-header">
-            <h3>Sign up</h3>
-        </div>
-        <div class="card-body">
+
+
+<div class="sidenav">
+         <div class="login-main-text">
+            
+            <h2>Register from here to access.</h2>
+         </div>
+      </div>
+
+      <div class="main">
+         <div class="col-md-6 col-sm-12">
+            <div class="login-form">
             <?php
             if (isset($_SESSION['message'])) { ?>
                 <div class="alert alert-danger"><?php echo $_SESSION['message']; ?></div>
@@ -29,9 +36,9 @@
                     <label for="confirm-password">Confirm Password</label>
                     <input id="txtConfirmPassword" class="form-control" type="password" name="confirm-password" required>
                 </div>
-                <input style="width: 150px;" class="btn btn-primary" name="signup" type="submit" value="Sign up" required>
+                <input style="width: 150px;" class="btn btn-black" name="signup" type="submit" value="Sign up" required>
 
-        </div>
+        
         </form>
     </div>
 </div>

@@ -23,7 +23,7 @@
             foreach ($allarticles as $article) {
               if ($article['status'] == 'published' && $article['is_feature'] == 1) { ?>
                 <div class="carousel-item <?php if ($i == 0) echo "active"; ?> ">
-                  <img src="<?php echo "/" . $article['image']; ?>" width="1000px" height="370px">
+                <a href="/blog/article/?article=<?php echo $article['slug']; ?>"><img src="<?php echo "/" . $article['image']; ?>" width="1000px" height="370px"></a>
                 </div>
             <?php $i++;
               }
@@ -51,11 +51,11 @@
 
           <div style="float:left;" class="col-md-11 blogShort">
             <h1><?php echo $result['title']; ?></h1>
-            <a href="/blog/article/?article=<?php echo $result['slug']; ?>"><img style="float:left;width:300px;height:200px;" src=<?php echo "/" . $result['thumbnail']; ?> width="350px" height="450px" class="pull-left img-responsive thumb margin10 img-thumbnail"></a>
+            <a href="/blog/article/?article=<?php echo $result['slug']; ?>"><img style="float:left;width:300px;height:200px;border-radius:12px;" src=<?php echo "/" . $result['thumbnail']; ?> width="350px" height="450px" class="pull-left img-responsive thumb margin10 img-thumbnail"></a>
 
             <article>
               <p>
-                <?php echo $result['summary']; ?>
+                <?php echo substr($result['summary'],0,320);?>
               </p>
             </article>
             <a class="btn btn-blog pull-right marginBottom10" href="/blog/article/?article=<?php echo $result['slug']; ?>">READ MORE</a>
@@ -69,11 +69,11 @@
 
           <div style="float:left;" class="col-md-11 blogShort">
             <h1><?php echo $article['title']; ?></h1>
-            <a href="/blog/article/?article=<?php echo $article['slug']; ?>"><img style="float:left; width:300px;height:200px;" src=<?php echo "/" . $article['thumbnail']; ?> width="350px" height="450px" class="pull-left img-responsive thumb margin10 img-thumbnail"></a>
+            <a href="/blog/article/?article=<?php echo $article['slug']; ?>"><img style="float:left; width:300px;height:200px;border-radius:12px;" src=<?php echo "/" . $article['thumbnail']; ?> width="350px" height="450px" class="pull-left img-responsive thumb margin10 img-thumbnail"></a>
 
             <article>
               <p>
-                <?php echo $article['summary']; ?>
+                <?php echo substr($article['summary'],0,320);?>
               </p>
             </article>
             <a class="btn btn-blog pull-right marginBottom10" href="/blog/article/?article=<?php echo $article['slug']; ?>">READ MORE</a>

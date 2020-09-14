@@ -31,13 +31,12 @@
         <a href="/blog/create">Add new post</a>
         </li>
         <li>
-        <a href="#" id="draft">My Drafts</a>
+        <a href="#"  onclick="show();" id="draft">My Drafts</a>
         </li>
         <ul style="display:none" class="list-unstyled pl-2" id="list">
             <?php foreach($mydrafts as $mydraft){ ?>
                 <li><a href="/blog/edit/?article=<?php echo $mydraft['slug'] ?>"><?php echo $mydraft['title']; ?></a></li>
             <?php } ?>
-            <li id="close"><a href="#">Close</a></li>
         </ul> 
     </ul>
 
@@ -45,11 +44,13 @@
 </nav>
 
 <script>
-    document.getElementById("draft").addEventListener("click", function() {
+      function show(){
+          event.preventDefault();
+        if(document.querySelector("#list").style.display == "none"){
         document.querySelector("#list").style.display = "grid";
-    });
-    document.querySelector("#close").addEventListener("click", function() {
+    }
+   else{
         document.querySelector("#list").style.display = "none";
-    });
-
+    }
+      }
 </script>

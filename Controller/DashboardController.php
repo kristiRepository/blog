@@ -9,11 +9,13 @@ class DashboardController
     protected $category;
     protected $userRequest;
     protected $tag;
+    protected $comment;
     protected $article;
 
     public function __construct($request)
     {
 
+        $this->comment = new Comment();
         $this->user = new User();
         $this->category = new Category();
         $this->tag = new Tag();
@@ -42,6 +44,10 @@ class DashboardController
     }
 
     public function comments(){
+
+        $result=$this->comment->getAllComments();
+        $comments=$result[0];
+
         require('views/blog/dashboard/comments.php');
     }
 

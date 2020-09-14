@@ -74,7 +74,7 @@ class BlogController
         $category="";
         $tags=array();
         
-        if($this->articleRequest->getInput('submit')=='add'){
+       
             if ($this->articleRequest->validateCreate()) {
                 return;
             };
@@ -85,21 +85,14 @@ class BlogController
         $articleId=$this->article->getLastId($this->articleRequest->getInput('title'));
         foreach($this->articleRequest->getInput('tags') as $tag){
             $this->tag->chain([$articleId[0]['id'],$tag]);
-        }}
-
-        if($this->articleRequest->getInput('submit')=='draft'){
-            if ($this->articleRequest->validateCreate()) {
-                return;
-            };
-            $file=$this->article->resizeImage('image');
-            $slug=preg_replace('/\s+/', '+',$this->articleRequest->getInput('title'));
-            $this->article->add([$this->articleRequest->getInput('title'),$slug,$this->articleRequest->getInput('summary'),$this->articleRequest->getInput('body'),$file[0],$file[1],$this->articleRequest->getInput('category'),'unpublished','0',$this->articleRequest->getInput('metadata'),$_SESSION['id'],'0']);
-            $articleId=$this->article->getLastId($this->articleRequest->getInput('title'));
-            foreach($this->articleRequest->getInput('tags') as $tag){
-                $this->tag->chain([$articleId[0]['id'],$tag]);
-            }  
         }
-        if($this->articleRequest->getInput('submit')=='edit'){
+
+       
+        header('Location: /index');
+    }
+
+    public function update(){
+       
             if ($this->articleRequest->validateCheck()) {
                 return;
             };
@@ -127,25 +120,24 @@ class BlogController
                     $this->tag->chain([$this->articleRequest->getInput('id1'),$tag]);
                 }
             }
+            var_dump($this->articleRequest->getInput('body'));
 
-            $this->article->postDraft($this->articleRequest->getInput('title'),$slug,$this->articleRequest->getInput('summary'),$this->articleRequest->getInput('body'),$file[0],$file[1],$category,$this->articleRequest->getInput('metadata'));
+            $this->article->postDraft($this->articleRequest->getInput('title'),$slug,$this->articleRequest->getInput('summary'),$this->articleRequest->getInput('body'),$file[0],$file[1],$category,$this->articleRequest->getInput('metadata'),$this->articleRequest->getInput('id1'));
 
-          
+            header('Location: /index');
             
         }
 
-
-
-        header('Location: /index');
-    }
+    
 
     public function edit(){
 
         
-        $draft=$this->article->getDraft($this->articleRequest->getInput('article'));
+        $drafts=$this->article->getDraft($this->articleRequest->getInput('article'));
+        $draft=$drafts[0];
         $categories=$this->category->getAllCategories();
         $tags=$this->tag->getAllTags();
-        $drafttags=$this->article->getDraftTags($draft[0]['id']);
+        $drafttags=$this->article->getDraftTags($draft['id']);
         
 
         require('views/blog/edit.php');
@@ -153,8 +145,10 @@ class BlogController
 
     public function show(){
 
-        $article=$this->article->getSingleArticle($this->articleRequest->getInput('article'));
-        $comments=$this->comment->articleComments($this->articleRequest->getInput('article'));
+        $articles=$this->article->getSingleArticle($this->articleRequest->getInput('article'));
+        $article=$articles[0];
+        $result=$this->comment->articleComments($this->articleRequest->getInput('article'));
+        $comments=$result[1];
     
         require('views/blog/index.php');
     }
@@ -166,6 +160,22 @@ class BlogController
         }
 
         header("Location: /index");
+    }
+
+    public function draft(){
+        
+            if ($this->articleRequest->validateCreate()) {
+                return;
+            };
+            $file=$this->article->resizeImage('image');
+            $slug=preg_replace('/\s+/', '+',$this->articleRequest->getInput('title'));
+            $this->article->add([$this->articleRequest->getInput('title'),$slug,$this->articleRequest->getInput('summary'),$this->articleRequest->getInput('body'),$file[0],$file[1],$this->articleRequest->getInput('category'),'unpublished','0',$this->articleRequest->getInput('metadata'),$_SESSION['id'],'0']);
+            $articleId=$this->article->getLastId($this->articleRequest->getInput('title'));
+            foreach($this->articleRequest->getInput('tags') as $tag){
+                $this->tag->chain([$articleId[0]['id'],$tag]);
+            }  
+        
+        header('Location: /index');
     }
 
 

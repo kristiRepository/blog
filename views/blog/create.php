@@ -1,4 +1,6 @@
 <?php include('views/blog/partials/header.php'); ?>
+<script src="https://cdn.tiny.cloud/1/rnp9io7fai2xcx9bcujqswjmgzm740xiciiq0gvdkwd5to3i/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
 
 
 <div class="container mt-5 mb-4">
@@ -11,7 +13,7 @@
             if (isset($_SESSION['message'])) { ?>
                 <div class="alert alert-danger"><?php echo $_SESSION['message']; ?></div>
             <?php  }  unset($_SESSION['message']);?>
-            <form action="/blog/store" method="POST" enctype="multipart/form-data">
+            <form id="create-form" action="/blog/" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" name="title" id="title" placeholder="Enter article title" class="form-control" required>
@@ -22,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label for="body">Body</label>
-                    <textarea name="body" rows="4" cols="50" id="body" class="form-control" placeholder="Enter article body" required></textarea>
+                    <textarea name="body" id=myTextarea  class="form-control" placeholder="Enter article body" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="image">Select article image</label>
@@ -49,8 +51,8 @@
                         <?php } ?>
                     </select>
                 </div>
-                <button class="btn btn-primary " type="submit" name="submit" value="add">Add Article</button>
-                <span><button class="btn btn-success" type="submit" name="submit" value="draft">Save as draft</button></span>
+                <button class="btn btn-primary create" type="button"  value="add">Add Article</button>
+                <span><button class="btn btn-success create" type="button"  value="draft">Save as draft</button></span>
             </form>
         </div>
     </div>
@@ -67,4 +69,28 @@
 
 
 
+
 <?php include('views/blog/partials/footer.php'); ?>
+<script>
+
+    $('.create').click(function(){
+        
+        if ($(this).val() == 'add') {
+            $('#create-form').attr('action', '/blog/store');
+           
+        }
+        else {
+            $('#create-form').attr('action', '/blog/draft');
+            
+        } 
+        $('#create-form').submit();
+        
+        
+    });
+
+    tinymce.init({
+    selector: '#myTextarea'
+});
+
+
+</script>

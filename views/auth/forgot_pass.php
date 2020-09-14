@@ -21,7 +21,7 @@
                     <input type="email" name="recovery-email" class="form-control" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" name="forgot-password" class="btn btn-primary">
+                    <button type="submit" name="forgot-password" class="btn btn-black">
                     Recover your password
                     </button>
                 </div>

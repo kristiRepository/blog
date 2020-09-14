@@ -204,8 +204,8 @@ class Article
         $this->query->delete('article_tag','article_id',$article);
     }
 
-    public function postDraft($title,$slug,$summary,$body,$image,$thumbnail,$category_id,$metadata){
-        $this->query->postdraft($title,$slug,$summary,$body,$image,$thumbnail,$category_id,$metadata,$_SESSION['id']);
+    public function postDraft($title,$slug,$summary,$body,$image,$thumbnail,$category_id,$metadata,$title1){
+        $this->query->postdraft($title,$slug,$summary,$body,$image,$thumbnail,$category_id,$metadata,$_SESSION['id'],$title1);
     }
 
     public function deleteDraft($article){
