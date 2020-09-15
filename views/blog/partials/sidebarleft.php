@@ -14,7 +14,7 @@
             </li>
         <?php } ?>
         <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><?php echo $_SESSION['username'] ?></a>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span style="padding-right: 10px;"><img width="40px" height="40px" src="/views/auth/profile_picture/<?php echo $_SESSION['profile_picture'] ?>"></span><?php echo  $_SESSION['username'] ?></a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
                     <a href="/signout">Sign out</a>

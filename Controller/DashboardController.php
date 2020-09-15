@@ -5,50 +5,43 @@ class DashboardController
 {
 
 
-    protected $user;
-    protected $category;
+   
     protected $userRequest;
-    protected $tag;
-    protected $comment;
-    protected $article;
+    protected $dashboardRepository;
+   
 
     public function __construct($request)
     {
 
-        $this->comment = new Comment();
-        $this->user = new User();
-        $this->category = new Category();
-        $this->tag = new Tag();
-        $this->article = new Article();
+        
         $this->userRequest = new UserRequest($request);
+        $this->dashboardRepository=new DashboardRepository();
     }
 
     public function index()
     {
 
-
-        $users = $this->user->allVerified();
+        $users=$this->dashboardRepository->allVerified();
         require('views/blog/dashboard/index.php');
     }
 
     public function categories()
     {
-        $categories = $this->category->getAllCategories();
+        $categories = $this->dashboardRepository->getAllCategories();
         require('views/blog/dashboard/categories.php');
     }
 
     public function articles()
     {
-        $result = $this->article->getAllArticles(0, 6);
-        $articles = $result[0];
-        $article_tags = $this->article->getArticlesWithTags();
+        $result=$this->dashboardRepository->articles();
+        $articles=$result['articles'];
+        $article_tags=$result['article_tags'];
         require('views/blog/dashboard/articles.php');
     }
 
     public function comments()
     {
-
-        $result = $this->comment->getAllComments();
+        $result=$this->dashboardRepository->comments();
         $comments = $result[0];
 
         require('views/blog/dashboard/comments.php');
@@ -56,13 +49,14 @@ class DashboardController
 
     public function tags()
     {
-        $tags = $this->tag->getAllTags();
+        
+        $tags=$this->dashboardRepository->tags();
         require('views/blog/dashboard/tags.php');
     }
 
     public function make_admin()
     {
-        $this->user->makeAdmin($this->userRequest->getInput('user_id'));
+        $this->dashboardRepository->makeAdmin($this->userRequest->getInput('user_id'));
         header('Location: /dashboard/index');
     }
 }

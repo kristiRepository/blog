@@ -5,12 +5,14 @@ class CategoriesController
 {
 
     protected $categoryRequest;
-    protected $category;
+    protected $categoryRepository;
+    
+
 
 
     public function __construct($request)
     {
-        $this->category = new Category();
+        $this->categoryRepository = new CategoryRepository();
         $this->categoryRequest = new CategoryRequest($request);
     }
 
@@ -22,7 +24,7 @@ class CategoriesController
             return;
         };
 
-        $this->category->add($this->categoryRequest->getInput('name'));
+        $this->categoryRepository->add($this->categoryRequest->getInput('name'));  
         header('Location: /dashboard/categories');
     }
 
@@ -32,10 +34,7 @@ class CategoriesController
         if ($this->categoryRequest->validateCheck()) {
             return;
         };
-
-        $this->category->edit($this->categoryRequest->getInput('edit-name'), $this->categoryRequest->getInput('category_id'));
-        session_start();
-        $_SESSION['success'] = "Category edited successfully";
+        $this->categoryRepository->edit($this->categoryRequest->getInput('edit-name'),$this->categoryRequest->getInput('category_id'));
         header('Location: /dashboard/categories');
     }
 
@@ -44,9 +43,7 @@ class CategoriesController
         if ($this->categoryRequest->validateUpdate()) {
             return;
         };
-        $this->category->delete($this->categoryRequest->getInput('delete_category'));
-        session_start();
-        $_SESSION['success'] = "Category deleted successfully";
+        $this->categoryRepository->delete($this->categoryRequest->getInput('delete_category'));
         header('Location: /dashboard/categories');
     }
 }

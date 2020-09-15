@@ -1,20 +1,18 @@
 <?php include('views/blog/partials/header.php'); ?>
 
-<!-- MAIN CSS -->
-<link rel="stylesheet" href="/views/blog/assets/index.css">
-
-</head>
 
 
+<body>
 
+<div class="wrapper" >
+<?php include('views/blog/partials/sidebarleft.php'); ?>
+
+<div id="content">
 <section>
-    <nav style="height:60px;background-color:#7386D5;" class="navbar fixed-top navbar">
-        <a class="navbar-brand" style="color:white" href="/index">Home</a>
-    </nav>
-    <div class="container">
-        <h2><?php echo $article['title']; ?></h2>
+    <div class="container pt-3">
+        <h2 style="color: black;"><?php echo $article['title']; ?></h2>
 
-        <p class="lead">
+        <p class="lead pt-3">
             <i class="fa fa-user"></i><?php echo " " . $article['username']; ?> &nbsp;&nbsp;&nbsp;
             <i class="fa fa-calendar"></i><?php echo " " . $article['publish_date']; ?> &nbsp;&nbsp;&nbsp;
 
@@ -38,7 +36,7 @@
 
 
 
-                    <h5><?php echo $comment['username']; ?></h5>
+                    <h5><span style="padding-right: 10px;"><img width="40px" height="40px" src="/views/auth/profile_picture/<?php echo $comment['profile_picture']; ?>"></span><?php echo $comment['username']; ?><span style="font-size: 10px;padding-left:5px"><?php echo "(".date("m/d/y g:i A",strtotime($comment['created_at'])).")"; ?></span></h5>
                     <?php if ($_SESSION['id'] == $comment['user_id']) { ?>
                         <div id="replace<?php echo $i; ?>">
                             <form style="float: right;" method="POST" action="/comment/delete">
@@ -71,7 +69,7 @@
 
 
                     <div class="form-group">
-                        <textarea name="comment" class="form-control" rows="15" autocomplete="off"></textarea>
+                        <textarea name="comment" class="form-control" rows="3" autocomplete="off"></textarea>
                     </div>
 
                     <input type="hidden" name="slug" value=<?php echo $article['slug']; ?>>
@@ -97,6 +95,13 @@ unset($_SESSION['message']); ?>
 </html>
 
 <?php include('views/blog/partials/footer.php'); ?>
+
+
+</div>
+
+<?php include('views/blog/partials/sidebarright.php'); ?>
+</div>
+
 
 
 

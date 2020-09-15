@@ -15,6 +15,7 @@ class User{
     private $verified;
     private $createdate;
     private $user_role;
+    private $profile_picture;
 
 
     public function __construct()
@@ -47,6 +48,9 @@ class User{
     }
     public function getId(){
         return $this->id;
+    }
+    public function getProfilePicture(){
+        return $this->profile_picture;
     }
 
 

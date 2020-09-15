@@ -5,12 +5,12 @@ class CommentController
 {
 
     protected $commentRequest;
-    protected $comment;
+    protected $commentRepository;
 
 
     public function __construct($request)
     {
-        $this->comment = new Comment();
+        $this->commentRepository=new CommentRepository();
         $this->commentRequest = new CommentRequest($request);
     }
 
@@ -22,36 +22,26 @@ class CommentController
             return;
         };
 
-        $this->comment->add([$this->commentRequest->getInput('comment'), $this->commentRequest->getInput('article_id'), $_SESSION['id']]);
+        $this->commentRepository->add($this->commentRequest->getInput('comment'), $this->commentRequest->getInput('article_id'));
         header('Location: /blog/article/?article=' . $this->commentRequest->getInput('slug'));
     }
 
     public function delete()
     {
-        if ($this->commentRequest->getInput('admin') != "") {
-            $this->comment->delete($this->commentRequest->getInput('comment_id'));
-            header('Location: /dashboard/comments');
-            return;
-        } else if ($_SESSION['id'] != $this->commentRequest->getInput('author')) {
-            header('Location: /blog/article/?article=' . $this->commentRequest->getInput('slug'));
-            return;
-        } else if ($_SESSION['id'] == $this->commentRequest->getInput('author')) {
-            $this->comment->delete($this->commentRequest->getInput('comment_id'));
-            header('Location: /blog/article/?article=' . $this->commentRequest->getInput('slug'));
+       
+        if($this->commentRepository->delete($this->commentRequest->getInput('admin'),$this->commentRequest->getInput('comment_id'),$this->commentRequest->getInput('author'))){
             return;
         }
+        header('Location: /blog/article/?article=' . $this->commentRequest->getInput('slug'));
+
     }
 
     public function update()
     {
-        if ($_SESSION['id'] != $this->commentRequest->getInput('comm_author')) {
-            header('Location: /blog/article/?article=' . $this->commentRequest->getInput('redirect_comm'));
-            return;
-        } else {
-            $this->comment->updateComment($this->commentRequest->getInput('id_comment'), $this->commentRequest->getInput('new_content'));
 
-            header('Location: /blog/article/?article=' . $this->commentRequest->getInput('redirect_comm'));
-            return;
-        }
+        $this->commentRepository->update($this->commentRequest->getInput('comm_author'),$this->commentRequest->getInput('id_comment'),$this->commentRequest->getInput('new_content'));
+       
+        
+        header('Location: /blog/article/?article=' . $this->commentRequest->getInput('redirect_comm'));
     }
 }

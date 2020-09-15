@@ -155,24 +155,27 @@ class AllQuery extends Query
 
     public function getSingleArticle($title)
     {
-        $query = "SELECT article.id AS id,article.title AS title, user.username AS username, article.publish_date AS publish_date, article.image AS image, article.body AS body,article.slug AS slug FROM ((article INNER JOIN category ON article.category_id=category.id) INNER JOIN user ON article.user_id=user.id) WHERE title =:title ";
+        $query = "SELECT article.id AS id,article.title AS title,user.username AS username, article.publish_date AS publish_date, article.image AS image, article.body AS body,article.slug AS slug FROM ((article INNER JOIN category ON article.category_id=category.id) INNER JOIN user ON article.user_id=user.id) WHERE title =:title ";
         $statment = $this->pdo->prepare($query);
         $statment->bindParam(":title", $title, PDO::PARAM_STR);
         $statment->execute();
         return $statment->fetchAll();
     }
 
-    public function articleComments($article_title)
+    public function articleComments($title)
     {
-        $query = "SELECT comment.user_id AS user_id, comment.id AS comment_id, comment.comment_body AS comment_body, user.username AS username, article.title AS title FROM ((comment INNER JOIN user ON comment.user_id=user.id) INNER JOIN article ON comment.article_id=article.id)  ";
+        $query = "SELECT comment.created_at AS created_at, comment.user_id AS user_id, comment.id AS comment_id, comment.comment_body AS comment_body, user.username AS username,user.profile_picture AS profile_picture, article.title AS title FROM ((comment INNER JOIN user ON comment.user_id=user.id) INNER JOIN article ON comment.article_id=article.id) ";
         $statment = $this->pdo->prepare($query);
         $statment->execute();
         $result0 = $statment->fetchAll();
-        $query = $query . "WHERE title=:title ";
+        
+        $query = $query . " WHERE title=:title ORDER BY comment.created_at";
         $statment = $this->pdo->prepare($query);
-        $statment->bindParam(":title", $article_title, PDO::PARAM_STR);
+        $statment->bindParam(":title", $title, PDO::PARAM_STR);
         $statment->execute();
         $result1 = $statment->fetchAll();
+        
         return [$result0, $result1];
+        
     }
 }

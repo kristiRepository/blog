@@ -55,6 +55,12 @@ class UserRequest extends Request implements ValidateInterface
             header("Location: /signup");
             return true;
         }
+        if (! isset($_FILES['image']['name']) || $_FILES['image']['name'] == "" ) {
+            session_start();
+            $_SESSION['message'] = "Image not set";
+            header("Location: /signup");
+            return true;
+        }
         return false;
     }
 

@@ -5,12 +5,12 @@ class TagController
 {
 
     protected $tagRequest;
-    protected $tag;
+    protected $tagRepository;
 
 
     public function __construct($request)
     {
-        $this->tag = new Tag();
+        $this->tagRepository = new TagRepository();
         $this->tagRequest = new TagRequest($request);
     }
 
@@ -21,7 +21,7 @@ class TagController
             return;
         };
 
-        $this->tag->createTag($this->tagRequest->getInput('name'));
+        $this->tagRepository->create($this->tagRequest->getInput('name'));
         header('Location: /dashboard/tags');
     }
 }

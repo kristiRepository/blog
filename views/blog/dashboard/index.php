@@ -12,6 +12,7 @@
       
       <table class="table table-bordered">
         <thead>
+          <th>Profile Picture</th>
           <th>Username</th>
           <th>Email</th>
           <th>Created</th>
@@ -20,6 +21,7 @@
         </thead>
         <?php foreach($users as $user){?>
           <tr>
+          <td><img width="40px" height="40px" src="/views/auth/profile_picture/<?php echo $_SESSION['profile_picture'] ?>"></td>
           <td><?php echo $user->getUsername(); ?></td>
           <td><?php echo $user->getEmail(); ?></td>
           <td><?php echo $user->getCreateDate(); ?></td>

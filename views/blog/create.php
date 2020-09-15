@@ -73,22 +73,4 @@
 
 
 <?php include('views/blog/partials/footer.php'); ?>
-<script>
-    $('.create').click(function() {
-
-        if ($(this).val() == 'add') {
-            $('#create-form').attr('action', '/blog/store');
-
-        } else {
-            $('#create-form').attr('action', '/blog/draft');
-
-        }
-        $('#create-form').submit();
-
-
-    });
-
-    tinymce.init({
-        selector: '#myTextarea'
-    });
-</script>
+<script src="/views/blog/assets/create.js"></script>

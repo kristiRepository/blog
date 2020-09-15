@@ -19,7 +19,7 @@
                 <div class="alert alert-danger"><?php echo $_SESSION['message']; ?></div>
             <?php }
             unset($_SESSION['message']); ?>
-            <form action="/register" method="POST">
+            <form action="/register" method="POST"  enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input class="form-control" type="text" name="username" required>
@@ -35,6 +35,10 @@
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password</label>
                     <input id="txtConfirmPassword" class="form-control" type="password" name="confirm-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="image">Import profile picture</label>
+                    <input class="form-control-file" type="file" name="image" accept="image/*" required>
                 </div>
                 <input style="width: 150px;" class="btn btn-black" name="signup" type="submit" value="Sign up" required>
 
