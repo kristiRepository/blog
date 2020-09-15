@@ -65,6 +65,7 @@
 
         <?php }
       } else {
+         if(! empty($allarticles)){ 
         foreach ($articles as $article) { ?>
 
           <div style="float:left;" class="col-md-11 blogShort">
@@ -81,7 +82,9 @@
           </br>
 
       <?php }
-      } ?>
+      }else{
+      ?> <h3>No posts yet</h3><?php 
+      } }?>
       <br>
       <br>
       <br>
